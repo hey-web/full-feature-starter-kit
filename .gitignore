@@ -31,3 +31,11 @@ node_modules
 
 # Optional REPL history
 .node_repl_history
+
+# Build files
+build/*.js
+build/*.js.map
+build/*.css
+build/*.css.map
+build/*.png
+build/*.svg

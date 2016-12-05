@@ -4,7 +4,8 @@
   "description": "react app build by webpack",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server --inline --hot --content-base src/",
+    "dev": "webpack-dev-server --inline --hot --content-base www/",
+    "build": "webpack",
     "test": "mocha"
   },
   "repository": {
@@ -12,12 +13,12 @@
     "url": "git+ssh://git@github.com/wangpin34/webpack-react-starter-kit.git"
   },
   "keywords": [
-    "webpack",
+    "kit",
     "react",
     "reactjs",
     "starter",
-    "kit",
-    "starter"
+    "starter",
+    "webpack"
   ],
   "author": "wangpin",
   "license": "MIT",
@@ -26,24 +27,23 @@
   },
   "homepage": "https://github.com/wangpin34/webpack-react-starter-kit#readme",
   "dependencies": {
-
     "react": "^15.4.1",
     "react-dom": "^15.4.1"
-
   },
   "devDependencies": {
-    "webpack": "^1.13.3",
-        "react-hot-loader": "^1.3.1",
-    "sass-loader": "^4.0.2",
-    "style-loader": "^0.13.1",
-    "webpack": "^1.13.3",
-    "webpack-dev-server": "^1.16.2",
-        "babel": "^6.5.2",
+    "babel": "^6.5.2",
     "babel-core": "^6.18.2",
     "babel-loader": "^6.2.8",
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-react": "^6.16.0",
     "css-loader": "^0.26.1",
-    "node-sass": "^3.13.0"
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.9.0",
+    "node-sass": "^3.13.0",
+    "react-hot-loader": "^1.3.1",
+    "sass-loader": "^4.0.2",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.13.3",
+    "webpack-dev-server": "^1.16.2"
   }
 }
