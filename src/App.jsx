@@ -1,15 +1,12 @@
-import React, { Component, PropTypes } from 'react'
+import React from 'react'
+var s = require('../assets/images/lxh.jpg')
 
 const App = () => (
-
-	<div>
-		This is the root element of App
-
-		<div className="photo">
-
-		</div>
-	</div>
-
+    <div>
+        This is an App 
+        <div className="pic"></div>
+        <img src={ s }/>
+    </div>
 )
 
 export default App
