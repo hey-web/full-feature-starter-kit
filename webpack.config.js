@@ -1,42 +1,42 @@
 var webpack = require('webpack');
-var commonsPlugin = new webpack.optimize.CommonsChunkPlugin('common.js');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var CopyWebpackPlugin = require('copy-webpack-plugin');
 var path = require('path');
+
+const hrm = 'webpack-hot-middleware/client?path=http://localhost:3000/__webpack_hmr'
 
 module.exports = {
     devtool: 'sourcemap',
     entry: {
-        app: path.join(__dirname, './src/index.jsx'),
-        react: ['react', 'react-dom']
+        app: [hrm, './src/index'],
+        vendor: [hrm, 'react', 'react-dom', 'redux', 'redux-logger', 'redux-thunk', 'react-redux']
     },
     output: {
-        path: path.join(__dirname, 'www'),
-        publicPath: '/',
-        filename: '[name].js',
-        chunkFilename: "index.js"
+        path: path.join(__dirname, 'dist'),
+        publicPath: '/js/',
+        filename: '[name].js'
     },
     resolve: {
-     extensions: ['', '.js', '.jsx', '.scss', 'jpg', 'jpeg', 'gif', 'png', 'svg']
+        extensions: ['', '.js', '.jsx', '.scss', '.json', '.jpg', '.png']
     },
     module: {
         loaders: [
-            { test: /\.(js|jsx)$/, loaders: ['react-hot', 'babel'], include: path.join(__dirname, 'src'), exclude: /node_modules|lib/},
-            { test: /\.scss$/, loader: ExtractTextPlugin.extract('style', 'css!sass'), include: path.join(__dirname, 'src'), exclude: /node_modules|lib/ },
-            { test: /\.(jpe?g|png|gif|svg)$/i, loader: 'file?name=images/[name].[ext]&publicPath=/&outputPath=www/images/'}
+            { test: /\.jsx?$/, loaders: ['react-hot','babel'], include: path.join(__dirname, 'src') },
+            { test: /\.scss$/, loaders: ['style', 'css', 'sass'], include: path.join(__dirname, 'src') },
+            { test: /.(png|jpg|jpeg|svg)$/, loader: 'file' }
         ]
     },
     plugins: [
-        new ExtractTextPlugin("style.css"),
-        new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"react", /* filename= */"react.bundle.js"),
+        new webpack.optimize.CommonsChunkPlugin(chunkName="vendor", filename="vendor.js"),
+        new webpack.optimize.CommonsChunkPlugin('common.js'),
+        // Webpack 1.0
+        new webpack.optimize.OccurenceOrderPlugin(),
+        // Webpack 2.0 fixed this mispelling
+        // new webpack.optimize.OccurrenceOrderPlugin(),
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NoErrorsPlugin(),
         new webpack.DefinePlugin({
             "process.env": { 
                 NODE_ENV: JSON.stringify("development") 
             }
         }),
-        new CopyWebpackPlugin([ { from: 'lib/'} ]),
-        commonsPlugin,
-        new webpack.HotModuleReplacementPlugin()
     ]
-
-}
+};
